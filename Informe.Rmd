@@ -100,3 +100,26 @@ fviz_nbclust(clusteringVar, kmeans, method = "silhouette") +
 
 ```
 Al igual que el método del codo, el número de clusters ideal es de 3, pero para este método, se tomó en cuenta el número de agrupaciones que tenga una silueta más elevada. 
+
+
+#### 5. Determine la calidad del agrupamiento hecho por cada algoritmo con el método de la silueta. Discuta los resultados. 
+
+{r}
+df <- data.frame(algoritmo=c("K-mean", "Jerarquico", "Gaussiano"),
+                silueta=c(Kmean, Jerarquico, Gaussiano))
+head(df)
+library(ggplot2)
+p<-ggplot(data=df, aes(x=algoritmo, y=silueta, fill=algoritmo)) +
+  geom_bar(stat="identity")
+p
+
+
+Como se observa en la gráfica, la que obtuvo mejores resultados fue Cluster jerárquico, con un resultado de `r Jerarquico`, podríamos decir que el Agrupamiento Jerárquico fue el mejor, ya que este cuenta con la ventaja de que cualquier medida de distancia puede ser usada, dicho sea de paso, nosotros utilizamos la matriz de distancia, por eso es que hace que se vuelva tan eficiente en comparación a los otros métodos.
+
+#### 6. Interprete los grupos basado en el conocimiento que tiene de los datos. Recuerde investigar las medidas de tendencia central de las variables continuas y las tablas de frecuencia de las variables categóricas pertenecientes a cada grupo. Identifique hallazgos interesantes debido a las agrupaciones y describa para qué le podría servir.
+
+{r}
+table(datos$genres,datos$grupo)
+
+
+Con la información de las tablas anteriores, se puede determinar con mayor facilidad la coleccion de datos, ya que tenemos el resumen de la cantidad de veces que se repite un elemento, esto es muy importante sobre todo cuando hablamos de variables categoricas, entonces a base del clustering de las variables numericas, nos facilita la organizacion y obtencion de informacion de las variables categoricas
